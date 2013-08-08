@@ -1,0 +1,15 @@
+Created by Ashwin Menon
+
+This script will send an email to your inbox when a new notice is put up on PU.
+
+To add your email to the list, ask me (or you can set it up with the files provided here).
+
+To get an SMS, follow the steps on this link:
+http://techawakening.org/free-sms-alerts-new-email-on-gmail-with-google-docs/1130
+
+For the filter, filter emails from: hunterofthegrove@gmail.com
+and apply label sendsms
+
+For the script (copy paste gappscript.txt from this repo), which is a modified version of the script used by default.
+
+Feel free to improve the code.
