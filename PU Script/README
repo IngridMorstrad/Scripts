@@ -1,15 +1,65 @@
 Created by Ashwin Menon
 
+
+Please try to pay it forward
+This script is provided free of cost
+Created so that you can benefit
+Do things so that others can benefit
+Kudos
+
+DISCLAIMER:
+Script is provided as is
+Use at your own risk
+By using this script you agree not to blame me for anything bad that may happen (to your virtual life/computer) like your computer spontaneously combusting.
+
+What this script does:
 This script will send an email to your inbox when a new notice is put up on PU.
 
-To add your email to the list, ask me (or you can set it up with the files provided here).
-
+How do I set it up?
 To get an SMS, follow the steps on this link:
 http://techawakening.org/free-sms-alerts-new-email-on-gmail-with-google-docs/1130
 
-For the filter, filter emails from: hunterofthegrove@gmail.com
-and apply label sendsms
+Alternatively, you can follow the steps at the bottom of this readme.
 
-For the script (copy paste gappscript.txt from this repo), which is a modified version of the script used by default.
+Can I modify the code?
+Feel free, but attribute the original code to me. Also, if your modifications improve stuff, it would be nice to commit them here :)
 
-Feel free to improve the code.
+Can I steal/lose my login details using this?
+Probably, but please try not to... Provide some useful service instead.
+
+SETUP procedure:
+Add your email
+1. Tell me to add it
+OR
+1. Using the files provided (puscript.py, details.txt, subscribers.txt), set it up yourself - you need the mechanize library and Beautiful Soup as well
+
+Set up mobile
+1. Go to google Calendar (calendar.google.com)
+2. Click settings
+3. Click on the mobile setup tab
+4. Enter ur mobile number, click send verification code
+5. Close this tab, you don't need it any more
+
+Set up gmail filters
+Note: All quotes are just for clarity
+1. Go to gmail
+2. Click settings
+3. Click filters
+4. Create a new filter
+5. In the "From: " field, enter "hunterofthegrove@gmail.com"
+6. Click "Create a filter with this search"
+7. Check the box for "Apply the label:" and under "Choose label" choose "New label"
+8. Enter the new label name "sendsms" and press "Create"
+9. Click "Create Filter"
+
+Set up the script
+1. Click on gappscript.txt and then click on "Raw"
+2. Open a spreadsheet in google Docs
+3. Click Tools-> Script Editor. Then, Resources-> Current project’s triggers.
+4. In the white space, copy the text from gappscript.txt and paste it. Save the code.
+5. Select click here to add one. Under events select Time-Driven then minutes timer and every minute and save it.
+6. Authorize and grant access. Now click close and save the trigger again. That’s it.
+
+You should be done now :)
+If you want to test it out, ask me to create a notification. Cheers!
+
