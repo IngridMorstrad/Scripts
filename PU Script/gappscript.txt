@@ -1,0 +1,97 @@
+/* Get Free International SMS alerts for new incoming Emails on Gmail*/
+
+/*Instructions at http://techawakening.org/?p=1130 */
+
+/*Original Script by Romain Vialard
+Modified by Shunmugha Sudararm for Techawakening.org*/
+
+/*
+============================================================================================================
+  Change Log:
+  
+  - Ver 0.2: Aug 10,2012: Now on sender email id too will be sent along with the email subject.
+  - Ver 0.3: Feb 09,2013: 1.Reminders will be added to a new calendar(sendsms) not to default calendar,
+                          2.Possible fix to resolve duplicate sms problem;
+  - Ver 0.4: Jul 07,2013: Added custom menu "Gmail SMS Alerts" from where you can deactivate the service.
+============================================================================================================
+*/
+
+/* Last modified by Ashwin Menon
+   Change Log:
+  - Ver X.1: Aug 08, 2013: Only sends an SMS once for each mail
+*/
+  
+
+function sendsms() 
+{
+  try
+  {
+    var label = GmailApp.getUserLabelByName('sendsms');
+    var threads = label.getThreads();
+    var now = new Date().getTime();
+    var cal=getCalendar();
+    
+    for(i in threads)
+    {
+      if (threads[i].getMessages()[0].isUnread()) {
+      cal.createEvent(threads[i].getFirstMessageSubject()+": "+threads[i].getMessages()[0].getFrom(),new Date(now+60000),
+        new Date(now+60000)).removeAllReminders().addSmsReminder(0);
+        threads[i].getMessages()[0].markRead();
+      }
+   
+    }
+    //label.removeFromThreads(threads);
+  }
+  catch(err)
+  {
+    Logger.log("Error Occured"+ err.toString());
+  }
+}
+
+
+
+function getCalendar()
+
+{
+  try
+  {
+    var cal=CalendarApp.getOwnedCalendarsByName("sendsms")[0];
+    
+    if (!cal)
+    {
+      cal=CalendarApp.createCalendar("sendsms");
+      return cal;
+    }
+    
+    else
+    {
+      return cal;
+    }
+  }
+  catch(e)
+  {
+    Logger.log("Error Occured"+ e.toString());
+  }
+
+}
+
+function onOpen() 
+{
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var menuEntries = [ {name: "Authorize", functionName: "authorize"},
+    {name: "Stop SMS alerts", functionName: "stopsmsalerts"}
+    ];
+  ss.addMenu("Gmail SMS Alerts", menuEntries);
+}
+
+function authorize(){}
+
+function stopsmsalerts()
+{
+var allTriggers = ScriptApp.getScriptTriggers();
+
+  for(var i=0; i < allTriggers.length; i++) 
+    ScriptApp.deleteTrigger(allTriggers[i]);
+  
+Browser.msgBox("Success", "You will not be getting SMS alerts anymore.",Browser.Buttons.OK);  
+}

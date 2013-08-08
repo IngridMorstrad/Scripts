@@ -1,8 +1,8 @@
 ## TODO
-## Try to send SMSes
-## Refactor code
-## Probably change file details
 ## Implement better security for pw
+## Refactor code - decompose into classes
+## Implement options
+## Create README
 
 ## README
 ## Please try to pay it forward
@@ -12,8 +12,6 @@
 
 ## DISCLAIMER:
 ## Script is provided as is
-## NO GUARANTEE ON SECURITY
-## Your email COULD be compromised...
 ## Use at your own risk
 
 import mechanize
@@ -22,13 +20,20 @@ import time, threading
 from bs4 import BeautifulSoup
 
 details = {}
+subscribers = []
 
 def foo(): ## change to decorator
-    bar()
+    ## surround in try -except
+    try:
+        bar()
+    except:
+        print "Error occured - PU site down?"
     threading.Timer(600, foo).start()
 
 def bar():
+    print time.asctime(time.localtime())
     print "Checking for notices"
+    ## Have to use try except clauses
     br = mechanize.Browser()
     my_url = "http://pu/index.php?option=login"
     br.open(my_url)
@@ -49,20 +54,23 @@ def bar():
     new_last_notice_read = last_notice_read
     for l in matches:
         if len(notice) == 6:
-            notice = notice[:3]+notice[5:]
-            if notice[0] > last_notice_read:
-                new_last_notice_read = max(new_last_notice_read, notice[0])
+            notice = notice[:3] + notice[-2:]
+            notice_num = int(notice[0])
+            if notice_num > last_notice_read:
+                new_last_notice_read = max(new_last_notice_read, notice_num)
                 notices += [notice]
             notice = []
-        if len(notice) == 0:
-            notice += [int(l.text)]
+        if len(notice) == 4:
+            l.a['href'] = "http://pu/"+l.a['href']
+            notice += [str(l.a)]
         else:
-            notice += [str(l.text)]
-
-    notice = notice[:3]+notice[5:]
-    if notice[0] > last_notice_read:
-        new_last_notice_read = max(new_last_notice_read, notice[0])
+            notice += [l.text] ##str?
+    notice = notice[:3] + notice[-2:]
+    notice_num = int(notice[0])
+    if notice_num > last_notice_read:
+        new_last_notice_read = max(new_last_notice_read, notice_num)
         notices += [notice]
+    notice = []
 
     if len(notices) > 0:
         print "New notice found"
@@ -72,42 +80,48 @@ def bar():
          
         email_sender = details["From"]
         email_password = details["GmailPassword"]
-        recipient = details["From"]
-        subject = 'New PU notice'
-        body = ""
-        for n in notices:
-            body += " ".join(map(str,n))
-            body += "<br>"
-        headers = ["From: " + email_sender,
-                   "Subject: " + subject,
-                   "To: " + recipient,
-                   "MIME-Version: 1.0",
-                   "Content-Type: text/html"]
-        headers = "\r\n".join(headers)
-         
+        recipients = subscribers
         session = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
-         
         session.ehlo()
         session.starttls()
         session.ehlo
         session.login(email_sender, email_password)
-        
-        session.sendmail(email_sender, recipient, headers + "\r\n\r\n" + body)
+        for n in notices:
+            n = map(str, n)
+            n_SMS = n[:3] + n[-1:]
+            subject = " ".join(n_SMS)
+            body = " ".join(n)
+            for recipient in recipients:
+                headers = ["From: " + email_sender,
+                           "Subject: " + subject,
+                           "To: " + recipient,
+                           "MIME-Version: 1.0",
+                           "Content-Type: text/html"]
+                headers = "\r\n".join(headers)
+                session.sendmail(email_sender, recipient, headers + "\r\n\r\n" + body)
         session.quit()
         print "Mail Sent!"
         details["LastNoticeRead"] = str(new_last_notice_read)
         f = open('details.txt', 'w')
-        for a in details:
-            f.write(a + ": " + details[a] + "\n")
+        for item in details:
+            f.write(item + ": " + details[item] + "\n")
+        f.close()
         print "Details written"
-        print "Will check again in 10 minutes"
+    else:
+        print "No new notices"
+    print "Will check again in 10 minutes"
+    ## To send SMS: http://techawakening.org/free-sms-alerts-new-email-on-gmail-with-google-docs/1130/
 
 def get_details():
+    global subscribers ## REFACTOR
     f = open('details.txt', 'r')
     for line in f:
         data = line.split(':')
-        details[str(data[0].strip())] = str(data[1].strip())
-    print details
+        details[data[0].strip()] = data[1].strip()  ##str?
+    f.close()
+    f = open('subscribers.txt', 'r')
+    for line in f:
+        subscribers += [line.strip()] ##str?
     f.close()
 
 get_details()

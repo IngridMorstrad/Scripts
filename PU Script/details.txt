@@ -1,7 +1,8 @@
 From: 
-PU_Password:
-GmailPassword:
-Send_email:
-PU_Username:
-Ring_Bell:
-LastNoticeRead:
+PU_Password: 
+Send_SMS: True
+GmailPassword: 
+Send_email: True
+PU_Username: 
+Ring_Bell: False
+LastNoticeRead: 105
