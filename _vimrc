@@ -3,12 +3,12 @@ source $VIMRUNTIME/vimrc_example.vim
 source $VIMRUNTIME/mswin.vim
 behave mswin
 
+syntax on
 set autochdir
 colorscheme Monokai
 if has('gui_running')
   set guifont=Consolas:h9:cANSI
 endif
-nnoremap Y y$
 set guioptions-=m
 set guioptions-=T
 set guioptions-=r
@@ -18,11 +18,13 @@ set expandtab
 set nobackup
 set nowritebackup
 set noswapfile
+set smartindent
+nnoremap Y y$
 nnoremap ; :
 nnoremap : ;
 
 
-set diffexpr=MyDiff()
+set diffexpr=
 function MyDiff()
   let opt = '-a --binary '
   if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
