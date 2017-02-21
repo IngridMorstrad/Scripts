@@ -1,7 +1,7 @@
+"execute pathogen#infect()
 syntax on
 set autochdir
-"Using smart indent instead 
-"filetype plugin indent on
+filetype plugin indent on
 colorscheme Monokai
 if has('gui_running')
   set guifont=Consolas:h9:cANSI
@@ -15,7 +15,8 @@ set expandtab
 set nobackup
 set nowritebackup
 set noswapfile
-set smartindent
+"Using filetype plugin indent instead for workflowish
+"set smartindent
 nnoremap Y y$
 nnoremap ; :
 nnoremap : ;
