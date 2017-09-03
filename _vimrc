@@ -6,11 +6,11 @@ colorscheme Monokai
 if has('gui_running')
   set guifont=Consolas:h9:cANSI
 endif
+"Remove the toolbars and other things from the GUI
 set guioptions-=m
 set guioptions-=T
 set guioptions-=r
 set shiftwidth=4
-set softtabstop=4
 set expandtab
 set nobackup
 set nowritebackup
@@ -20,3 +20,4 @@ set noswapfile
 nnoremap Y y$
 nnoremap ; :
 nnoremap : ;
+inoremap kj <ESC>    "quicker way to exit a mode
