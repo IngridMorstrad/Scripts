@@ -21,3 +21,6 @@ nnoremap Y y$
 nnoremap ; :
 nnoremap : ;
 inoremap kj <ESC>    "quicker way to exit a mode
+
+" Do not show stupid q: window
+map q: :q
