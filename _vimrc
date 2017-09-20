@@ -2,7 +2,11 @@
 syntax on
 set autochdir
 filetype plugin indent on
-colorscheme Monokai
+try
+    colorscheme Monokai
+catch
+    silent! colorscheme desert
+endtry
 if has('gui_running')
   set guifont=Consolas:h9:cANSI
 endif
