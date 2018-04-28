@@ -1,5 +1,3 @@
-global toDelete
-set toDelete to {}
 set messagesToProcess to 10000 -- upper limit per folder
 set progressInterval to 100 -- intervals at which to log progress
 set nextCheckpoint to progressInterval
@@ -17,6 +15,7 @@ tell application "Microsoft Outlook"
 			set repeatsFound to 0
 			set seenMessageSubjects to {}
 			set toContinue to true
+			set toDelete to {}
 			repeat while toContinue
 				set toContinue to false
 				set msgs to messages of currFolder
@@ -34,38 +33,45 @@ tell application "Microsoft Outlook"
 						set mailsToCleanup to my sortList(relatedMails)
 						-- decrement as otherwise the parent message may be double counted
 						set messagesProcessed to messagesProcessed - 1
-						if my cleanupMessages(mailsToCleanup) then
+						set newToDelete to my cleanupMessages(mailsToCleanup)
+						repeat with msg in newToDelete
+							copy msg to end of toDelete
+						end repeat
+						if (count of toDelete) > 0 then
 							set cleanupCount to cleanupCount + 1
 						end if
-						
 						-- optimized to exit only after a certain number of duplicates were found
 						if cleanupCount > 50 then
 							set cleanupCount to 0
 							exit repeat -- exit and delete the duplicates, then continue
 						end if
 					end if
-					if messagesProcessed ? nextCheckpoint then
+					if messagesProcessed = nextCheckpoint then
 						log ("Processed " & messagesProcessed & " messages")
 						-- set nextCheckpoint to the next progressInterval above messagesProcessed
 						set nextCheckpoint to (((messagesProcessed - messagesProcessed mod progressInterval) / progressInterval + 1) * progressInterval)
 					end if
 				end repeat
 				set repeatsFound to (repeatsFound + (count of toDelete))
-				repeat with msg in toDelete
-					log ("deleting message") -- with id " & msg's exchange id)
-					-- TODO: See if we can just delete the message when found
-					delete msg
-				end repeat
+				my deleteMessages(toDelete)
 				if messagesProcessed > messagesToProcess then
 					log ("Exiting")
 					exit repeat
 				end if
+				-- TODO: Fix to subtract the messages that were not deleted from messages processed (as they will get processed again)
 				set toDelete to {}
 			end repeat
 		end if
 	end repeat
 	log (repeatsFound & " repeats found & deleted")
 end tell
+
+on deleteMessages(toDelete)
+	repeat with msg in toDelete
+		log ("deleting message") -- with id " & msg's exchange id)
+		delete msg
+	end repeat
+end deleteMessages
 
 on sortList(myList)
 	-- TODO: quick optimization: use a different sort (Tim Sort)
@@ -103,23 +109,29 @@ on getTruncatedSubject(subject)
 end getTruncatedSubject
 
 on cleanupMessages(msgs)
-	set foundDuplicates to false
+	set toDelete to {}
 	using terms from application "Microsoft Outlook"
 		set allMessages to ""
 		repeat with msg in msgs
 			set ptc to plain text content of msg
 			set ptcCleaned to my replaceNewlines(ptc, "")
 			-- TODO: write a contains algorithm that ignores whitespace
-			if allMessages contains ptcCleaned then
-				copy msg to the end of toDelete
-				set foundDuplicates to true
-				log ("repeat found") -- & msg's exchange id)
+			set atts to msg's attachments
+			set noAttachment to true
+			repeat with att in atts
+				set noAttachment to false
+			end repeat
+			if (allMessages contains ptcCleaned) then
+				if noAttachment then
+					copy msg to the end of toDelete
+					log ("repeat found") -- & msg's exchange id)
+				end if
 			else
 				set allMessages to allMessages & ptcCleaned
 			end if
 		end repeat
 	end using terms from
-	return foundDuplicates
+	return toDelete
 end cleanupMessages
 
 on replaceNewlines(this_text, replacement_string)
@@ -127,3 +139,4 @@ on replaceNewlines(this_text, replacement_string)
 	set newText to text items of this_text
 	set AppleScript's text item delimiters to replacement_string
 	return newText as string
+end replaceNewlines
