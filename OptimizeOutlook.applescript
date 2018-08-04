@@ -2,6 +2,7 @@ set messagesToProcess to 10000 -- upper limit per folder
 set progressInterval to 100 -- intervals at which to log progress
 set nextCheckpoint to progressInterval
 set folderNameToClean to "MyFolder"
+global seenMessageIDs
 
 tell application "Microsoft Outlook"
 	repeat with currFolder in mail folders
@@ -14,6 +15,7 @@ tell application "Microsoft Outlook"
 			set messagesProcessed to 0
 			set repeatsFound to 0
 			set seenMessageSubjects to {}
+			set seenMessageIDs to {}
 			set toContinue to true
 			set toDelete to {}
 			repeat while toContinue
@@ -24,10 +26,13 @@ tell application "Microsoft Outlook"
 					set currSubj to subject of msg as string
 					set truncatedSubject to my getTruncatedSubject(currSubj)
 					set messagesProcessed to messagesProcessed + 1
-					if seenMessageSubjects does not contain truncatedSubject then
+					set refs to msg's headers as text
+					set messageID to do shell script "awk -F 'Message-ID:|References:|Accept-Language:' '{print $2}'<<<" & (quoted form of refs)
+					set messageID to my split(my replaceNewlines(messageID, ""), "<", ">") as text
+					if seenMessageIDs does not contain messageID then
 						set toContinue to true -- there are more messages to process as we may exit early
 						--log ("New master message for cleanup: " & currSubj)
-						copy truncatedSubject to the end of seenMessageSubjects
+						-- TODO: This could be changed to doing a DFS/BFS on the IDs in the reference section of the header. As it stands the code finds a larger list of related mails than is true (as the only requirement is that the truncated subject be contained).
 						set relatedMails to (messages of currFolder whose subject contains truncatedSubject)
 						set messagesProcessed to messagesProcessed + (count of relatedMails)
 						set mailsToCleanup to my sortList(relatedMails)
@@ -63,12 +68,13 @@ tell application "Microsoft Outlook"
 			end repeat
 		end if
 	end repeat
-	log (repeatsFound & " repeats found & deleted")
+	log ((repeatsFound as text) & " repeats found & deleted")
 end tell
 
 on deleteMessages(toDelete)
+	log ("deleting " & ((count of toDelete) as text) & " messages")
 	repeat with msg in toDelete
-		log ("deleting message") -- with id " & msg's exchange id)
+		--log ("deleting message with id " & msg's id)
 		delete msg
 	end repeat
 end deleteMessages
@@ -110,33 +116,69 @@ end getTruncatedSubject
 
 on cleanupMessages(msgs)
 	set toDelete to {}
+	set attachmentsSeen to {}
 	using terms from application "Microsoft Outlook"
-		set allMessages to ""
 		repeat with msg in msgs
-			set ptc to plain text content of msg
-			set ptcCleaned to my replaceNewlines(ptc, "")
-			-- TODO: write a contains algorithm that ignores whitespace
-			set atts to msg's attachments
 			set noAttachment to true
+			set atts to msg's attachments
 			repeat with att in atts
-				set noAttachment to false
-			end repeat
-			if (allMessages contains ptcCleaned) then
-				if noAttachment then
-					copy msg to the end of toDelete
-					log ("repeat found") -- & msg's exchange id)
+				-- TODO: Find a better way to determine unique attachments. Is there an attachment ID?
+				if attachmentsSeen does not contain (att's name as text) then
+					set noAttachment to false
+					copy (att's name as text) to the end of attachmentsSeen
 				end if
-			else
-				set allMessages to allMessages & ptcCleaned
+			end repeat
+			--log ("Message with subject " & msg's subject & " has no attachment: " & noAttachment)
+			set refs to msg's headers as text
+			--log (refs)
+			set messageID to do shell script "awk -F 'Message-ID:|References:|Accept-Language:' '{print $2}'<<<" & (quoted form of refs)
+			set messageID to my split(my replaceNewlines(messageID, ""), "<", ">") as text
+			--log ("current msg id: " & messageID)
+			set messagesEnclosed to do shell script "awk -F 'In-Reply-To:|Reply-To:|References:' '{print $2}'<<<" & (quoted form of refs)
+			set messagesEnclosed to my split(my replaceNewlines(messagesEnclosed, ""), "<", ">")
+			--log ("The messages enclosed were: " & messagesEnclosed)
+			if noAttachment then
+				if seenMessageIDs contains messageID then
+					copy msg to the end of toDelete
+					--log ("sending message ID: " & messageID & " to be deleted") -- & msg's exchange id)
+				end if
+			end if
+			if seenMessageIDs does not contain messageID then
+				copy (messageID as text) to the end of seenMessageIDs
+				
+				repeat with messageEnclosed in messagesEnclosed
+					if seenMessageIDs does not contain messageEnclosed then
+						copy (messageEnclosed as text) to the end of seenMessageIDs
+					end if
+				end repeat
 			end if
 		end repeat
 	end using terms from
 	return toDelete
 end cleanupMessages
 
+-- Creates a list, splitting on startDelim, endDelim
+on split(inputStr, startDelim, endDelim)
+	set currStr to ""
+	set retList to {}
+	repeat with i from 1 to count of inputStr
+		if item i of inputStr = startDelim then
+			set currStr to ""
+		else if item i of inputStr = endDelim then
+			copy currStr to end of retList
+			set currStr to ""
+		else
+			set currStr to currStr & item i of inputStr
+		end if
+	end repeat
+	return retList
+end split
+
 on replaceNewlines(this_text, replacement_string)
+	set savedTextItemDelimiters to AppleScript's text item delimiters
 	set AppleScript's text item delimiters to {return & linefeed, " ", return, linefeed, character id 8233, character id 8232}
 	set newText to text items of this_text
 	set AppleScript's text item delimiters to replacement_string
+	set AppleScript's text item delimiters to savedTextItemDelimiters
 	return newText as string
 end replaceNewlines
