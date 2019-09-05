@@ -10,7 +10,7 @@ endtry
 if has('gui_running')
   set guifont=Consolas:h9:cANSI
 endif
-"Remove the toolbars and other things from the GUI
+" Remove the toolbars and other things from the GUI
 set guioptions-=m
 set guioptions-=T
 set guioptions-=r
@@ -21,12 +21,13 @@ set nobackup
 set nowritebackup
 set noswapfile
 set number
-"Using filetype plugin indent instead for workflowish
-"set smartindent
+" Using filetype plugin indent instead for workflowish
+" Set smartindent
 nnoremap Y y$
 nnoremap ; :
 nnoremap : ;
-inoremap kj <ESC>    "quicker way to exit a mode
+" Exit quickly
+inoremap kj <ESC>
 
 " Do not show stupid q: window
 map q: :q
