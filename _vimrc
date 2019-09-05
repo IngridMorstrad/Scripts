@@ -15,6 +15,7 @@ set guioptions-=m
 set guioptions-=T
 set guioptions-=r
 set shiftwidth=4
+set softtabstop=4
 set expandtab
 set nobackup
 set nowritebackup
@@ -29,3 +30,11 @@ inoremap kj <ESC>    "quicker way to exit a mode
 
 " Do not show stupid q: window
 map q: :q
+
+" Easy pasting
+set pastetoggle=<F10>
+inoremap <C-v> <F10><C-r>+<F10>
+
+" Persistent undo
+set undolist
+set undodir=~/.vim/undodir
