@@ -21,6 +21,7 @@ set nobackup
 set nowritebackup
 set noswapfile
 set number
+set relativenumber
 " Using filetype plugin indent instead for workflowish
 " Set smartindent
 nnoremap Y y$
