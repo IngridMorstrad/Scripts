@@ -40,3 +40,5 @@ inoremap <C-v> <F10><C-r>+<F10>
 " Persistent undo
 set undolist
 set undodir=~/.vim/undodir
+
+cmap w!! w !sudo tee > /dev/null %
