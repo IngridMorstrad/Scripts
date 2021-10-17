@@ -37,8 +37,8 @@ map q: :q
 set pastetoggle=<F10>
 inoremap <C-v> <F10><C-r>+<F10>
 
-" Persistent undo
-set undolist
+" Persistent undo (was undolist earlier?)
+set undofile
 set undodir=~/.vim/undodir
 
 cmap w!! w !sudo tee > /dev/null %
