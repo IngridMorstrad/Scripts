@@ -1,4 +1,3 @@
-"execute pathogen#infect()
 syntax on
 set autochdir
 filetype plugin indent on
@@ -9,11 +8,14 @@ catch
 endtry
 if has('gui_running')
   set guifont=Consolas:h9:cANSI
+  " Remove the toolbars and other things from the GUI
+  set guioptions-=m
+  set guioptions-=T
+  set guioptions-=r
 endif
-" Remove the toolbars and other things from the GUI
-set guioptions-=m
-set guioptions-=T
-set guioptions-=r
+if has('syntax') && has('eval')
+  packadd! matchit
+endif
 set shiftwidth=4
 set softtabstop=4
 set expandtab
@@ -30,15 +32,37 @@ nnoremap : ;
 " Exit quickly
 inoremap kj <ESC>
 
+" Better window mapping
+nnoremap <C-l> <C-w>v<C-w><C-l>
+nnoremap <C-j> <C-w>s<C-w><C-j>
+nnoremap <C-q> :q<CR>
+nnoremap <C-x> :x<CR>
+
+" Wrap
+:map \p wbi(<Esc>ea)<Esc>
+:map \c wbi{<Esc>ea}<Esc>
+
 " Do not show stupid q: window
 map q: :q
+
+fun! ToggleNumber() "{{{
+    if exists('+relativenumber')
+    	:exec "setl nu!"
+        :exec "setl rnu!"
+    else
+        setl nu! 
+    endif
+endf "}}}
+nnoremap <C-n> :call ToggleNumber()<CR>
 
 " Easy pasting
 set pastetoggle=<F10>
 inoremap <C-v> <F10><C-r>+<F10>
 
-" Persistent undo (was undolist earlier?)
-set undofile
-set undodir=~/.vim/undodir
+" Persistent undo
+if has('persistent_undo')
+  set undofile
+  set undodir=~/.vim/undodir
+endif
 
 cmap w!! w !sudo tee > /dev/null %
