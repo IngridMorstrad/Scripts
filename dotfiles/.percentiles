@@ -1,0 +1,82 @@
+function resetStart() {
+    echo "Setting start to $(date)"
+    echo "$(date +%s)" > /tmp/seconds
+    logStart
+}
+
+function logStart() {
+    seconds=""
+    read -r seconds < /tmp/seconds
+    if [ -z "$seconds" ]; then
+        echo "Setting start to $(date +%s)"
+        seconds=$(date +%s)
+        echo "$(date +%s)" > /tmp/seconds
+    else
+        echo "Seconds is already set. Run resetStart."
+    fi
+}
+
+function timeDiff() {
+    timeDiffProd=$(expr $(expr $2 - $1) / 60)
+}
+
+
+function logEnd() {
+    read -r seconds < /tmp/seconds
+    if [ -z "$seconds" ]; then
+        echo "Seconds not set"
+        return
+    fi
+    newDt="$(date +%s)"
+    echo $newDt
+    # timeDiff $seconds $newDt
+    timeDiffSecProd=$(expr $newDt - $seconds)
+    logS $timeDiffSecProd
+    echo "" > /tmp/seconds
+}
+
+function logS() {
+    echo "Logging $1 seconds"
+    cd ~/percentile-feedback/
+    python data.py --log-period $1 && python data.py --convert-log periods.txt
+    cd -
+}
+
+function logM() {
+    sec=$(expr $1 \* 60)
+    echo "Logging $1 minutes"
+    logS $sec
+}
+
+function logSA() {
+    seconds=""
+    read -r seconds < /tmp/secondsA
+    if [ -z "$seconds" ]; then
+        echo "Setting start to $(date +%s)"
+        seconds=$(date +%s)
+        echo "$(date +%s)" > /tmp/secondsA
+    else
+        echo "Seconds is already set. Run resetStart."
+    fi
+}
+
+function resetSA() {
+    echo "Setting start to $(date)"
+    echo "$(date +%s)" > /tmp/secondsA
+    logSA
+}
+
+function logEA() {
+    read -r seconds < /tmp/secondsA
+    if [ -z "$seconds" ]; then
+        echo "Seconds not set"
+        return
+    fi
+    newDt="$(date +%s)"
+    echo $newDt
+    # timeDiff $seconds $newDt
+    timeDiffSecProd=$(expr $newDt - $seconds)
+    echo "$timeDiffSecProd $1" >> ~/timeData.txt
+    echo "" > /tmp/secondsA
+}
+
