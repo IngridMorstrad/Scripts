@@ -37,15 +37,20 @@ nnoremap <C-l> <C-w>v<C-w><C-l>
 nnoremap <C-j> <C-w>s<C-w><C-j>
 nnoremap <C-q> :q<CR>
 nnoremap <C-x> :x<CR>
+nnoremap <C-e> :q!<CR>
+nnoremap <C-s> :%s//g<Left><Left>
 
 " Wrap
 :map \p wbi(<Esc>ea)<Esc>
 :map \c wbi{<Esc>ea}<Esc>
 
 " Do not show stupid q: window
-map q: :q
+" map q: :q
+" Force usage of <C-commands>
+nmap ;q <CR>
+nmap ;x <CR>
 
-fun! ToggleNumber() "{{{
+fun! ToggleNumber() abort "{{{
     if exists('+relativenumber')
     	:exec "setl nu!"
         :exec "setl rnu!"
@@ -65,4 +70,6 @@ if has('persistent_undo')
   set undodir=~/.vim/undodir
 endif
 
-cmap w!! w !sudo tee > /dev/null %
+cmap <C-w> w !sudo tee > /dev/null %<CR>
+cmap <C-v> e $MYVIMRC<CR>
+
