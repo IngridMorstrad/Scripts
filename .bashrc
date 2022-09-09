@@ -1,0 +1,86 @@
+# common config file that works for bash & zsh
+
+isMac=$(uname -a | grep -o '<UPDATE>')
+
+BASE='<UPDATE_REMOTE_FP>'
+if [[ $isMac = "<UPDATE>" ]]; then
+    BASE='~'
+    echo "Sourcing folder aliases"
+    source ~/.folder_aliases
+    echo "Done sourcing folder aliases"
+fi
+HISTCONTROL=ignoredups:erasedups
+shopt -s histappend
+PROMPT_COMMAND="history -n; history -w; history -c; history -r; $PROMPT_COMMAND"
+
+export EDITOR=vim
+
+alias h="cd $BASE"
+alias vz='vim ~/.zshrc'
+alias vb='vim ~/.bashrc'
+
+# or use jless
+jqc() {
+    jq --color-output . $1  | less -r
+}
+
+# Aliases the last command
+# Pass alias as argument to ca
+ca() {
+    createAlias="alias $1='$(fc -ln -1)'"
+    eval $createAlias
+    echo $createAlias >> ~/.aliases
+}
+
+# Bookmark function
+# Creates a bookmark to the current path.
+# Pass the alias as argument to bk
+function bk () {
+  bkAlias="alias $1='cd $(pwd)'"
+  eval $bkAlias
+  echo $bkAlias >> ~/.folder_aliases
+}
+
+export VPN_HOST='<UPDATE>'
+cac () { printf "$1" | /opt/cisco/anyconnect/bin/vpn -s connect "$VPN_HOST"; }
+alias disconnect='/opt/cisco/anyconnect/bin/vpn disconnect'
+
+# Try to duplicate watch for the mac
+function watch() {
+    while :;
+    do
+        date;
+        $1;
+        sleep $2;
+    done
+}
+
+# alias hgc='hg revert -r . .'
+
+function gprs() {
+  git stash
+  git pull --rebase
+  git stash pop
+}
+
+function runCmd() {
+    for d in ./*/ ; do (cd "$d" && $1); done
+}
+
+function pushd () {
+    command pushd "$@" > /dev/null
+}
+
+function popd () {
+    command popd "$@" > /dev/null
+}
+
+echo "Creating aliases"
+source ~/.aliases
+
+echo "Creating folder aliases"
+source ~/.folder_aliases
+echo "Done creating all aliases"
+
+# Get aliases to track for percentile feedback
+source ~/.percentile
