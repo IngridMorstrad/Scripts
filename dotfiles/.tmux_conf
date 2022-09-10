@@ -1,0 +1,3 @@
+echo set -g history-limit 30000 >> ~/.tmux.conf
+# fix vim colorscheme in tmux
+echo export TERM=screen-256color  >> ~/.bashrc
