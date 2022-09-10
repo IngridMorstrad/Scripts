@@ -9,11 +9,9 @@ if [[ $isMac = "<UPDATE>" ]]; then
     source ~/.folder_aliases
     echo "Done sourcing folder aliases"
 fi
-HISTCONTROL=ignoredups:erasedups
-shopt -s histappend
-PROMPT_COMMAND="history -n; history -w; history -c; history -r; $PROMPT_COMMAND"
+HISTSIZE=100000
 
-export EDITOR=vim
+EDITOR=vim
 
 alias h="cd $BASE"
 alias vz='vim ~/.zshrc'
