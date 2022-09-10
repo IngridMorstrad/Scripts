@@ -11,7 +11,6 @@ export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 
 # zsh history stuff
 HISTFILE=~/.zsh_history
-HISTSIZE=100000 # number of items for the internal history list
 SAVEHIST=100000 # maximum number of items for the history file
 setopt appendhistory
 setopt HIST_IGNORE_ALL_DUPS # do not duplicate commands
