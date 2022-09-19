@@ -676,4 +676,5 @@ brew doctor
 # brew install Brave
 # brew install Chrome
 # brew install iTerm2
+# make iterm2 default term
 touch ~/.vimrc
