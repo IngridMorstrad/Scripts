@@ -678,3 +678,6 @@ brew doctor
 # brew install iTerm2
 # make iterm2 default term
 touch ~/.vimrc
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+
