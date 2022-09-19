@@ -675,4 +675,5 @@ brew doctor
 # Vivaldi?
 # brew install Brave
 # brew install Chrome
+# brew install iTerm2
 touch ~/.vimrc
