@@ -674,3 +674,4 @@ brew doctor
 # Vivaldi?
 # brew install Brave
 # brew install Chrome
+touch ~/.vimrc
