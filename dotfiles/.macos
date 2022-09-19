@@ -667,6 +667,7 @@ echo "Done. Note that some of these changes require a logout/restart to take eff
 # /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 brew doctor
 # echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.profile
+# echo 'PATH="opt/homebrew/bin:$PATH"' >> ~/.commonrc
 # eval "$(/opt/homebrew/bin/brew shellenv)"
 # brew install Alfred
 # brew install Rectangle
