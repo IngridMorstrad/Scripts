@@ -676,7 +676,9 @@ brew doctor
 # brew install Brave
 # brew install Chrome
 # brew install iTerm2
-# make iterm2 default term
+# make iterm2 default term (open iterm2 and should be under the iTerm2 menu ctrl+shift+cmd+slash)
+# brew install --cask alt-tab
+# map caps lock to esc using modifiers
 touch ~/.vimrc
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
