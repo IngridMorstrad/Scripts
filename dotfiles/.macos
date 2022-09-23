@@ -679,7 +679,7 @@ brew doctor
 # make iterm2 default term (open iterm2 and should be under the iTerm2 menu ctrl+shift+cmd+slash)
 # brew install --cask alt-tab
 # map caps lock to esc using modifiers
-touch ~/.vimrc
+curl -o ~/.vimrc https://raw.githubusercontent.com/IngridMorstrad/Scripts/master/dotfiles/_vimrc
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 
