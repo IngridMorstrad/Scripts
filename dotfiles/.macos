@@ -685,3 +685,4 @@ curl -o ~/.bashrc https://raw.githubusercontent.com/IngridMorstrad/Scripts/maste
 curl -o ~/.commonrc https://raw.githubusercontent.com/IngridMorstrad/Scripts/master/dotfiles/.commonrc
 
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# Follow https://unix.stackexchange.com/a/418365
