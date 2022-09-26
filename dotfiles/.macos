@@ -680,6 +680,8 @@ brew doctor
 # brew install --cask alt-tab
 # map caps lock to esc using modifiers
 curl -o ~/.vimrc https://raw.githubusercontent.com/IngridMorstrad/Scripts/master/dotfiles/_vimrc
+curl -o ~/.zshrc https://raw.githubusercontent.com/IngridMorstrad/Scripts/master/dotfiles/.zshrc
+curl -o ~/.bashrc https://raw.githubusercontent.com/IngridMorstrad/Scripts/master/dotfiles/.bashrc
+curl -o ~/.commonrc https://raw.githubusercontent.com/IngridMorstrad/Scripts/master/dotfiles/.commonrc
+
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-
