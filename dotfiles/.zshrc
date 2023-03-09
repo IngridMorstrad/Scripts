@@ -8,7 +8,6 @@ PROMPT='%F{cyan}%n%f@%F{green}%m %F{yellow} %~ $%f '
 export CLICOLOR=1
 export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 
-
 # zsh history stuff
 HISTFILE=~/.zsh_history
 SAVEHIST=100000 # maximum number of items for the history file
@@ -19,5 +18,10 @@ setopt HIST_REDUCE_BLANKS # reduce blanks
 setopt HIST_IGNORE_SPACE
 setopt INC_APPEND_HISTORY_TIME
 setopt EXTENDED_HISTORY
+
+cleanhist() {
+    cat -n ~/.zsh_history | sort -t ';' -uk2 | sort -nk1 | cut -f2- > ~/.zsh_short_history
+    mv ~/.zsh_short_history ~/.zsh_history
+}
 
 echo "Done loading zshrc"
