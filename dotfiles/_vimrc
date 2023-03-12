@@ -27,6 +27,7 @@ set relativenumber
 
 set wildmenu
 set wildoptions=pum
+set whichwrap=b,s,<,>,h,l,[,]
 
 " Using filetype plugin indent instead for workflowish
 " Set smartindent
