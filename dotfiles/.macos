@@ -679,6 +679,10 @@ brew doctor
 # make iterm2 default term (open iterm2 and should be under the iTerm2 menu ctrl+shift+cmd+slash)
 # brew install --cask alt-tab
 # brew install tldr
+# brew install ripgrep
+# brew install fzf
+# brew install bat
+# brew install git-delta
 # map caps lock to esc using modifiers
 curl -o ~/.vimrc https://raw.githubusercontent.com/IngridMorstrad/Scripts/master/dotfiles/_vimrc
 curl -o ~/.zshrc https://raw.githubusercontent.com/IngridMorstrad/Scripts/master/dotfiles/.zshrc
