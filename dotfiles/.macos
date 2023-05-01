@@ -683,6 +683,8 @@ brew doctor
 # brew install fzf
 # brew install bat
 # brew install git-delta
+# brew install anki
+touch ~/.vimrc
 # map caps lock to esc using modifiers
 curl -o ~/.vimrc https://raw.githubusercontent.com/IngridMorstrad/Scripts/master/dotfiles/_vimrc
 curl -o ~/.zshrc https://raw.githubusercontent.com/IngridMorstrad/Scripts/master/dotfiles/.zshrc

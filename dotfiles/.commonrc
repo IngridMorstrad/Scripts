@@ -1,9 +1,19 @@
 # common config file that works for bash & zsh
 
-isMac=$(uname -a | grep -o '<UPDATE>')
+LOCALHOSTNAME='<UPDATE>'
+isMac=$(uname -a | grep -o $LOCALHOSTNAME)
+
+# remap caps lock and ESC
+mappingplist=com.apple.keyboard.modifiermapping
+
+defaults -currentHost write -g $mappingplist '(
+            {
+        HIDKeyboardModifierMappingDst = 30064771113;
+        HIDKeyboardModifierMappingSrc = 30064771129; }
+    )'
 
 BASE='<UPDATE_REMOTE_FP>'
-if [[ $isMac = "<UPDATE>" ]]; then
+if [[ $isMac = $LOCALHOSTNAME ]]; then
     BASE='~'
     echo "Sourcing folder aliases"
     source ~/.folder_aliases
@@ -14,8 +24,9 @@ HISTSIZE=100000
 EDITOR=vim
 
 alias h="cd $BASE"
-alias vz='vim ~/.zshrc'
+alias vz='vim ~/.zshrc.pre*'
 alias vb='vim ~/.bashrc'
+alias vc='vim ~/.commonrc'
 
 # or use jless
 jqc() {
@@ -41,7 +52,7 @@ function bk () {
 
 export VPN_HOST='<UPDATE>'
 cac () { printf "$1" | /opt/cisco/anyconnect/bin/vpn -s connect "$VPN_HOST"; }
-alias disconnect='/opt/cisco/anyconnect/bin/vpn disconnect'
+alias dac='/opt/cisco/anyconnect/bin/vpn disconnect'
 
 # Try to duplicate watch for the mac
 function watch() {
