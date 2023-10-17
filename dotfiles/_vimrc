@@ -1,20 +1,15 @@
 syntax on
 set autochdir
 filetype plugin indent on
-try
-    colorscheme Monokai
-catch
-    silent! colorscheme desert
-endtry
 if has('gui_running')
-  set guifont=Consolas:h9:cANSI
-  " Remove the toolbars and other things from the GUI
-  set guioptions-=m
-  set guioptions-=T
-  set guioptions-=r
+    set guifont=Consolas:h9:cANSI
+    " Remove the toolbars and other things from the GUI
+    set guioptions-=m
+    set guioptions-=T
+    set guioptions-=r
 endif
 if has('syntax') && has('eval')
-  packadd! matchit
+    packadd! matchit
 endif
 set shiftwidth=4
 set softtabstop=4
@@ -24,11 +19,9 @@ set nowritebackup
 set noswapfile
 set number
 set relativenumber
-
-set wildmenu
-set wildoptions=pum
-set whichwrap=b,s,<,>,h,l,[,]
-
+" set wildmenu
+" set wildoptions=pum
+" set whichwrap=b,s,<,>,h,l,[,]
 " Using filetype plugin indent instead for workflowish
 " Set smartindent
 nnoremap Y y$
@@ -43,6 +36,8 @@ nnoremap <C-j> <C-w>s<C-w><C-j>
 nnoremap <C-q> :q<CR>
 nnoremap <C-x> :x<CR>
 nnoremap <C-e> :q!<CR>
+" breaks navigating with split windows if using nnoremap
+inoremap <C-w> <Esc>:w<CR>
 nnoremap <C-s> :%s//g<Left><Left>
 
 " Wrap
@@ -51,13 +46,17 @@ nnoremap <C-s> :%s//g<Left><Left>
 
 " Do not show stupid q: window
 " map q: :q
-" Force usage of <C-commands>
-nmap ;q <CR>
-nmap ;x <CR>
+" Force usage of <C-commands>, disabled due to slowness
+" nmap ;q <CR>
+" nmap ;x <CR>
+" nmap ;w <CR>
+set wildmenu
+set wildoptions=pum
+set whichwrap=b,s,<,>,h,l,[,]
 
 fun! ToggleNumber() abort "{{{
     if exists('+relativenumber')
-    	:exec "setl nu!"
+        :exec "setl nu!"
         :exec "setl rnu!"
     else
         setl nu! 
@@ -69,12 +68,19 @@ nnoremap <C-n> :call ToggleNumber()<CR>
 set pastetoggle=<F10>
 inoremap <C-v> <F10><C-r>+<F10>
 
-" Persistent undo
-if has('persistent_undo')
-  set undofile
-  set undodir=~/.vim/undodir
-endif
-
 cmap <C-w> w !sudo tee > /dev/null %<CR>
 cmap <C-v> e $MYVIMRC<CR>
+nnoremap <leader>f :NERDTreeFocus<CR>
 
+if !has('nvim')
+    " Persistent undo
+    set undofile
+    set undodir=~/.vim/undodir
+    
+    try
+        colorscheme Monokai
+        " colorscheme tokyonight
+    catch
+        silent! colorscheme desert
+    endtry
+endif
