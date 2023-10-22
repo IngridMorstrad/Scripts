@@ -1,23 +1,33 @@
 # common config file that works for bash & zsh
 
-LOCALHOSTNAME='<UPDATE>'
-isMac=$(uname -a | grep -o $LOCALHOSTNAME)
+current_os=$(uname)
 
 BASE='~'
-
-if [[ $isMac = $LOCALHOSTNAME ]]; then
+if [[ $current_os == "Darwin" ]]; then
+    echo "Running Mac-specific commands"
     # remap caps lock and ESC
     mappingplist=com.apple.keyboard.modifiermapping
 
-    defaults -currentHost write -g $mappingplist '(
-            {
-        HIDKeyboardModifierMappingDst = 30064771113;
-        HIDKeyboardModifierMappingSrc = 30064771129; }
-    )'
+    defaults -currentHost write -g $mappingplist '(                              
+                {                                                                
+            HIDKeyboardModifierMappingDst = 30064771113;
+            HIDKeyboardModifierMappingSrc = 30064771129; }
+        )'
 
+    PATH="/opt/homebrew/bin:$PATH"
     echo "Sourcing folder aliases"
     source ~/.folder_aliases
     echo "Done sourcing folder aliases"
+
+    # Try to duplicate watch for the mac
+    function watch() {
+        while :;
+        do
+            date;
+            $1;
+            sleep $2;
+        done
+    }
 fi
 HISTSIZE=100000
 
@@ -54,16 +64,6 @@ export VPN_HOST='<UPDATE>'
 cac () { printf "$1" | /opt/cisco/anyconnect/bin/vpn -s connect "$VPN_HOST"; }
 alias dac='/opt/cisco/anyconnect/bin/vpn disconnect'
 
-# Try to duplicate watch for the mac
-function watch() {
-    while :;
-    do
-        date;
-        $1;
-        sleep $2;
-    done
-}
-
 # alias hgc='hg revert -r . .'
 
 function gprs() {
@@ -94,7 +94,9 @@ echo "Done creating all aliases"
 # Get aliases to track for percentile feedback
 source ~/.percentile
 
+# alias cat=bat
 alias pwdc='pwd | pbcopy && echo "Pwd copied to clipboard!"'
+# copy file
 function cpf() {
     cat $1 | pbcopy
 }
@@ -103,4 +105,10 @@ alias hn='hostname'
 alias ggsum='git branch --set-upstream-to=origin/mainline'
 
 eval $(thefuck --alias plz)
+# vi $(fzf)
+# vi $(find . '/' | fzf): For finding random config files
+# rg . | fzf: Fuzzy search every line in every file
+# rg . | fzf | cut -d ":" -f 1: Fuzzy search every line, in every file, and return the file location
+# vim $(rg . | fzf | cut -d ":" -f 1): Fuzzy search every line, in every file, and open that file
+#
 echo "Done loading .commonrc"
