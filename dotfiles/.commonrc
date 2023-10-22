@@ -3,18 +3,18 @@
 LOCALHOSTNAME='<UPDATE>'
 isMac=$(uname -a | grep -o $LOCALHOSTNAME)
 
-# remap caps lock and ESC
-mappingplist=com.apple.keyboard.modifiermapping
+BASE='~'
 
-defaults -currentHost write -g $mappingplist '(
+if [[ $isMac = $LOCALHOSTNAME ]]; then
+    # remap caps lock and ESC
+    mappingplist=com.apple.keyboard.modifiermapping
+
+    defaults -currentHost write -g $mappingplist '(
             {
         HIDKeyboardModifierMappingDst = 30064771113;
         HIDKeyboardModifierMappingSrc = 30064771129; }
     )'
 
-BASE='<UPDATE_REMOTE_FP>'
-if [[ $isMac = $LOCALHOSTNAME ]]; then
-    BASE='~'
     echo "Sourcing folder aliases"
     source ~/.folder_aliases
     echo "Done sourcing folder aliases"
@@ -93,3 +93,14 @@ echo "Done creating all aliases"
 
 # Get aliases to track for percentile feedback
 source ~/.percentile
+
+alias pwdc='pwd | pbcopy && echo "Pwd copied to clipboard!"'
+function cpf() {
+    cat $1 | pbcopy
+}
+alias ms="for var in {1..7}; do echo $'\a' && sleep 1; done"
+alias hn='hostname'
+alias ggsum='git branch --set-upstream-to=origin/mainline'
+
+eval $(thefuck --alias plz)
+echo "Done loading .commonrc"
