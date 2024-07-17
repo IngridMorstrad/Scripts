@@ -8,13 +8,13 @@ if [[ $current_os == "Darwin" ]]; then
     # remap caps lock and ESC
     mappingplist=com.apple.keyboard.modifiermapping
 
-    defaults -currentHost write -g $mappingplist '(                              
+    defaults -currentHost write -g "${mappingplist}" '(                              
                 {                                                                
             HIDKeyboardModifierMappingDst = 30064771113;
             HIDKeyboardModifierMappingSrc = 30064771129; }
         )'
 
-    PATH="/opt/homebrew/bin:$PATH"
+    PATH="/opt/homebrew/bin:${PATH}"
     echo "Sourcing folder aliases"
     source ~/.folder_aliases
     echo "Done sourcing folder aliases"
@@ -31,7 +31,7 @@ if [[ $current_os == "Darwin" ]]; then
 fi
 HISTSIZE=100000
 
-EDITOR=vim
+export EDITOR=vim
 
 alias h="cd $BASE"
 alias vz='vim ~/.zshrc.pre*'
@@ -40,7 +40,7 @@ alias vc='vim ~/.commonrc'
 
 # or use jless
 jqc() {
-    jq --color-output . $1  | less -r
+    jq --color-output . "$1"  | less -r
 }
 
 # Aliases the last command
@@ -84,6 +84,7 @@ function popd () {
     command popd "$@" > /dev/null
 }
 
+alias ms="for var in {1..7}; do echo $'\a' && sleep 1; done"
 echo "Creating aliases"
 source ~/.aliases
 
@@ -96,11 +97,11 @@ source ~/.percentile
 
 # alias cat=bat
 alias pwdc='pwd | pbcopy && echo "Pwd copied to clipboard!"'
+alias v='vim'
 # copy file
 function cpf() {
     cat $1 | pbcopy
 }
-alias ms="for var in {1..7}; do echo $'\a' && sleep 1; done"
 alias hn='hostname'
 alias ggsum='git branch --set-upstream-to=origin/mainline'
 
