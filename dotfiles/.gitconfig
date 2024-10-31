@@ -1,0 +1,20 @@
+[user]
+    name = XYZ
+    email = xyz@abcdef.com
+[commit]
+    template = /Users/abcdef/.template.txt
+[rerere]  
+    enabled = true  
+[pull]  
+    rebase = true
+[core]
+    editor = vim
+    pager=delta
+[rebase]
+    updateRefs = true
+    autoStash = true
+[filter "lfs"]
+    required = true
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
