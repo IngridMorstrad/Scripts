@@ -81,6 +81,8 @@ set rtp+=/opt/homebrew/opt/fzf
 autocmd BufNewFile,BufReadPre *.jrnl setlocal viminfo= noswapfile noundofile nobackup nowritebackup noshelltemp history=0 nomodeline secure
 
 packadd fzf.vim
+packloadall
+"silent! helptags ALL
 
 if !has('nvim')
     " Persistent undo
