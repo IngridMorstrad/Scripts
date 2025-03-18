@@ -44,4 +44,70 @@ zstyle :bracketed-paste-magic paste-finish pastefinish
 
 eval "$(starship init zsh)"
 
+# ["$TERM" = "xterm-kitty" ] && alias ssh="kitty +kitten ssh"
 echo "Done loading zshrc"
+source ~/.companyrc
+
+commands_to_check=("vi " "vim " "ssh ")
+
+preexec() {
+  local cmd="$1"
+  # Check if command starts with any of the strings
+  for keyword in "${commands_to_check[@]}"; do
+    if [[ "$cmd" == "$keyword"* ]]; then
+      return
+    fi
+  done
+
+  export AUTO_NOTIFY_START_TIME=$(date +%s)
+  export AUTO_NOTIFY_LOCK="true"
+  export AUTO_NOTIFY_CMD="$cmd"
+}
+
+precmd() {
+  # Check if AUTO_NOTIFY_LOCK is "false"
+  if [[ "$AUTO_NOTIFY_LOCK" == "false" ]]; then
+    return
+  fi
+
+  export AUTO_NOTIFY_LOCK="false"
+
+  local start_time="$AUTO_NOTIFY_START_TIME"
+  local current_time=$(date +%s)
+
+  if [[ -n "$start_time" ]]; then
+    local time_difference=$((current_time - start_time))
+
+    if ((time_difference > 10)); then
+      ms
+    fi
+  else
+    echo "AUTO_NOTIFY_START_TIME is not set."
+  fi
+}
+
+timer() {
+  if [[ $# -ne 1 || ! $1 =~ ^[0-9]+$ ]]; then
+    echo "Usage: timer <seconds>"
+    return 1
+  fi
+
+  local seconds="$1"
+  local start_time=$(date +%s)
+  local current_time
+  local remaining_time
+
+  while true; do
+    current_time=$(date +%s)
+    remaining_time=$((start_time + seconds - current_time))
+
+    if [[ $remaining_time -le 0 ]]; then
+      break
+    fi
+
+    printf "\r%ds remaining..." "$remaining_time"
+    sleep 1
+  done
+
+  echo "Time's up!"
+}
