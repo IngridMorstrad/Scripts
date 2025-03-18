@@ -61,7 +61,7 @@ function bk () {
 }
 
 export VPN_HOST='<UPDATE>'
-cac () { printf "$1" | /opt/cisco/anyconnect/bin/vpn -s connect "$VPN_HOST"; }
+cac () { pin=`security find-generic-password -a $LOGNAME -s sec.pin.name -w`; printf "$pin$1" | /opt/cisco/anyconnect/bin/vpn -s connect "$VPN_HOST"; unset pin; }
 alias dac='/opt/cisco/anyconnect/bin/vpn disconnect'
 
 # alias hgc='hg revert -r . .'
