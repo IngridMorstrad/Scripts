@@ -682,6 +682,8 @@ brew install ripgrep Rectangle tldr anki Alfred
 brew install --cask alt-tab
 brew install --cask zen
 brew install --cask ghostty
+# Only if you don't have Alfred powerpack
+brew install --cask jumpcut
 #brew install fzf
 # QuteBrowser?
 # brew install Brave
