@@ -1,0 +1,186 @@
+ChapterNumber,Title,WordCount,ApproxPages
+1,Chapter 1,0,0.0
+2,Harry Potter and the Methods of Rationality,124,0.4
+3,Preface,138,0.5
+4,"Author’s
+introduction",375,1.2
+5,"1. Harry
+James Potter-Evans-Verres and the Methods of Rationality",2681,8.9
+6,"2. Everything I Believe Is
+False",1604,5.3
+7,"3. Comparing Reality To Its
+Alternatives",2006,6.7
+8,"4. The Efficient Market
+Hypothesis",1905,6.3
+9,"5. The Fundamental Attribution
+Error",3502,11.7
+10,6. The Planning Fallacy,10348,34.5
+11,7. Reciprocation,11485,38.3
+12,8. Positive Bias,6229,20.8
+13,"9. Self Awareness, Part I",2405,8.0
+14,"10. Self Awareness, Part II",4074,13.6
+15,"11. Omake Files I, II & III",2873,9.6
+16,12. Impulse Control,4061,13.5
+17,13. Asking the Wrong Questions,6984,23.3
+18,"14. The Unknown and the
+Unknowable",5226,17.4
+19,15. Conscientiousness,3644,12.1
+20,16. Lateral Thinking,6637,22.1
+21,17. Locating the Hypothesis,13433,44.8
+22,18. Dominance Hierarchies,9647,32.2
+23,19. Delayed Gratification,8174,27.2
+24,20. Bayes’s Theorem,6311,21.0
+25,21. Rationalization,6725,22.4
+26,"2. Harry
+James Potter-Evans-Verres and the Professor’s Games",9113,30.4
+27,23. Belief in Belief,7293,24.3
+28,"24. Machiavellian
+Intelligence Hypothesis",4621,15.4
+29,"25. Hold Off on Proposing
+Solutions",5606,18.7
+30,26. Noticing Confusion,6055,20.2
+31,27. Empathy,9500,31.7
+32,28. Reductionism,8187,27.3
+33,29. Egocentric Bias,6195,20.6
+34,"30. Working in Groups, Part I",7857,26.2
+35,"31. Working in Groups, Part II",1048,3.5
+36,"32. Interlude: Personal
+Financial Management",1461,4.9
+37,"33. Coordination Problems, Part I",10325,34.4
+38,"34. Coordination Problems,
+Part II",4846,16.2
+39,"35. Coordination Problems,
+Part III",4777,15.9
+40,36. Status Differentials,4780,15.9
+41,"37. Interlude: Crossing the
+Boundary",909,3.0
+42,"3. Harry
+James Potter-Evans-Verres and the Shadows of Death",2899,9.7
+43,"39. Pretending to be Wise, Part I",8151,27.2
+44,"40. Pretending to be Wise,
+Part II",1686,5.6
+45,41. Frontal Override,2418,8.1
+46,42. Courage,3181,10.6
+47,"43. Humanism, Part I",7346,24.5
+48,"44. Humanism, Part II",1152,3.8
+49,"45. Humanism, Part III",3483,11.6
+50,"46. Humanism, Part IV",4165,13.9
+51,47. Personhood Theory,12431,41.4
+52,48. Utilitarian Priorities,3192,10.6
+53,49. Prior Information,4711,15.7
+54,50. Self Centeredness,3869,12.9
+55,"51. The Stanford Prison
+Experiment, Part I",3231,10.8
+56,"52. The Stanford Prison
+Experiment, Part II",3782,12.6
+57,"53. The Stanford Prison
+Experiment, Part III",1359,4.5
+58,"54. The Stanford Prison
+Experiment, Part IV",5744,19.1
+59,"55. The Stanford Prison
+Experiment, Part V",6583,21.9
+60,"56. The
+Stanford Prison Experiment, Part VI:Constrained Optimization",3685,12.3
+61,"57. The
+Stanford Prison Experiment, Part VII:Constrained Cognition",4363,14.5
+62,"58. The
+Stanford Prison Experiment, Part VIII:Constrained Cognition",4296,14.3
+63,"59. The Stanford
+Prison Experiment, Part IX:Curiosity",4632,15.4
+64,"60. The Stanford Prison
+Experiment, Part X",4158,13.9
+65,"61. The
+Stanford Prison Experiment, Part XI:Secrecy and Openness",6341,21.1
+66,"62. The Stanford Prison
+Experiment, Final",5355,17.9
+67,"63. The Stanford Prison
+Experiment, Aftermaths",14962,49.9
+68,"4. Hermione Jean
+Granger and the Phoenix’s Call",5813,19.4
+69,65. Contagious Lies,5000,16.7
+70,"66. Self Actualization, Part I",1560,5.2
+71,"67. Self Actualization, Part II",3939,13.1
+72,"68. Self Actualization, Part III",5135,17.1
+73,"69. Self Actualization, Part IV",3587,12.0
+74,"70. Self Actualization, Part V",5484,18.3
+75,"71. Self Actualization, Part VI",4898,16.3
+76,"72. Self
+Actualization, Part VII:Plausible Deniability",8641,28.8
+77,"73. Self
+Actualization, Part VIII:The Sacred and the Mundane",5392,18.0
+78,"74. Self
+Actualization, Part IX:Escalation of Conflicts",9982,33.3
+79,"75. Self Actualization,
+Part X:Responsibility",6236,20.8
+80,"76. Interlude with the
+Confessor: Sunk Costs",2951,9.8
+81,"77. Self-Actualization,
+Aftermaths: Surface Appearances",11092,37.0
+82,"78. Taboo Trade-offs Prelude:
+Cheating",16021,53.4
+83,"79. Taboo Trade-offs, Part I",8122,27.1
+84,"80. Taboo Trade-offs,
+Part II:The Horns Effect",6136,20.5
+85,"81. Taboo Trade-offs, Part III",5506,18.4
+86,"82. Taboo Trade-offs, Part Final",4024,13.4
+87,"83. Taboo Trade-offs, Aftermath,
+Part I",634,2.1
+88,"84. Taboo Trade-offs, Aftermath,
+Part II",10929,36.4
+89,"85. Taboo Trade-offs,
+Aftermath, Part III:Distance",6202,20.7
+90,"5. Harry James
+Potter-Evans-Verres and the Last Enemy",21541,71.8
+91,87. Hedonic Awareness,6592,22.0
+92,"88. Time Pressure, Part I",6050,20.2
+93,"89. Time Pressure, Part II",2863,9.5
+94,"90. Roles, Part I",5731,19.1
+95,"91. Roles, Part II",4683,15.6
+96,"92. Roles, Part III",2204,7.3
+97,"93. Roles, Part IV",3776,12.6
+98,"94. Roles, Part V",3819,12.7
+99,"95. Roles, Part VI",4339,14.5
+100,"96. Roles, Part VII",3340,11.1
+101,"97. Roles, Part VIII",6727,22.4
+102,"98. Roles, Final",3050,10.2
+103,"99. Roles, Aftermath",17,0.1
+104,"6. Harry
+James Potter-Evans-Verres and the Philosopher’s Stone",11,0.0
+105,"100. Precautionary Measures,
+Part I",6066,20.2
+106,"101. Precautionary Measures,
+Part II",3033,10.1
+107,102. Caring,4089,13.6
+108,103. Tests,2393,8.0
+109,"104. The Truth, Part I:Riddles
+and Answers",9970,33.2
+110,"105. The Truth, Part II",3235,10.8
+111,"106. The Truth, Part III",1497,5.0
+112,"107. The Truth, Part IV",4349,14.5
+113,"108. The Truth, Part V:Answers
+and Riddles",15043,50.1
+114,"109. Reflections, Part I",5452,18.2
+115,"110. Reflections, Part II",2008,6.7
+116,"111. Failure, Part I",8509,28.4
+117,"112. Failure, Part II",1397,4.7
+118,113. End-of-year Exam,3171,10.6
+119,114. Final Exam,772,2.6
+120,"115. Shut Up and Do The
+Impossible, Part I",2014,6.7
+121,"116. Shut Up and Do The
+Impossible, Part II",3319,11.1
+122,"117. Aftermath, Something to
+Protect, Part 0",2192,7.3
+123,"118. Something to Protect:
+Minerva McGonagall",2342,7.8
+124,"119. Something to Protect:
+Professor Quirrell",1206,4.0
+125,"120. Something to Protect:
+Albus Dumbledore",10042,33.5
+126,"121. Something to Protect: Draco
+Malfoy",2686,9.0
+127,"122. Something to Protect:
+Severus Snape",1419,4.7
+128,"123. Something to Protect:
+Hermione Granger",12830,42.8
+TOTAL,,661400,2204.7
